@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preety's Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f1a;
+            color: #ffffff;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #0f0f1a;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid #ffffff20;
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #a78bfa; }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #a78bfa; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #0f0f1a, #1e1b4b);
+        }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: #a78bfa; }
+        .hero p {
+            font-size: 20px;
+            color: #94a3b8;
+            max-width: 500px;
+            margin-bottom: 36px;
+        }
+        .btn {
+            background: #a78bfa;
+            color: white;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #7c3aed; }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            padding: 80px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #a78bfa;
+        }
+        .about p {
+            font-size: 17px;
+            color: #94a3b8;
+            line-height: 1.8;
+        }
+
+        /* ===== SKILLS SECTION ===== */
+        .skills {
+            background: #1e1b4b;
+            padding: 80px 60px;
+            text-align: center;
+        }
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .skill-card {
+            background: #0f0f1a;
+            border: 1px solid #a78bfa50;
+            border-radius: 12px;
+            padding: 20px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #a78bfa;
+            transition: transform 0.2s;
+        }
+        .skill-card:hover { transform: translateY(-4px); }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            padding: 80px 60px;
+            text-align: center;
+        }
+        .contact p {
+            color: #94a3b8;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+        .contact a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #475569;
+            font-size: 14px;
+            border-top: 1px solid #ffffff10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Preety ✨</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Hello, I'm <span>Preety</span> 👋</h1>
+        <p>A passionate learner building her first steps in the world of coding!</p>
+        <a href="#contact" class="btn">Get In Touch</a>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <h2 class="section-title">About Me</h2>
+        <p>
+            I'm Preety, and I'm learning to code. 
+I love exploring new things and I'm building 
+my first portfolio website. 
+This is my first step into the world of tech! 🚀
+        </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">HTML 🌐</div>
+            <div class="skill-card">CSS 🎨</div>
+            <div class="skill-card">Learning 📚</div>
+            <div class="skill-card">Problem Solving 🧠</div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <p>Feel free to reach out!</p>
+        <a href="preetybag63@gmail.com">preetybag63@gmail.com</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Made with ❤️ by Preety © 2026</p>
+    </footer>
+
+</body>
+</html>
