@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopEasy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">✦ ShopEasy</div>
+    <div class="header-right">
+      <input type="text" id="search" placeholder="Search products...">
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 Cart <span id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Category Filter -->
+  <div class="categories">
+    <button class="cat active" onclick="filterCat('all', this)">All</button>
+    <button class="cat" onclick="filterCat('electronics', this)">Electronics</button>
+    <button class="cat" onclick="filterCat('fashion', this)">Fashion</button>
+    <button class="cat" onclick="filterCat('books', this)">Books</button>
+    <button class="cat" onclick="filterCat('home', this)">Home</button>
+    <button class="cat" onclick="filterCat('sports', this)">Sports</button>
+  </div>
+
+  <!-- Product Grid -->
+  <main>
+    <div class="product-grid" id="product-grid"></div>
+  </main>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2>🛒 Your Cart</h2>
+      <button onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <p class="empty-cart">Cart is empty!</p>
+    </div>
+    <div class="cart-footer">
+      <div class="total">Total: ₹<span id="cart-total">0</span></div>
+      <button class="checkout-btn">Checkout →</button>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+</body>
+</html>
+<!-- Review Modal -->
+<div class="review-overlay" id="review-overlay" onclick="closeReview()"></div>
+<div class="review-modal" id="review-modal">
+  <div class="review-header">
+    <h2>⭐ Write a Review</h2>
+    <button onclick="closeReview()">✕</button>
+  </div>
+  <div class="review-body">
+    <p id="review-product-name" style="color:#a78bfa;margin-bottom:16px;font-size:16px;"></p>
+    
+    <label>Your Name</label>
+    <input type="text" id="review-name" placeholder="Enter your name">
+    
+    <label>Rating</label>
+    <div class="star-rating" id="star-rating">
+      <span onclick="setRating(1)">★</span>
+      <span onclick="setRating(2)">★</span>
+      <span onclick="setRating(3)">★</span>
+      <span onclick="setRating(4)">★</span>
+      <span onclick="setRating(5)">★</span>
+    </div>
+    
+    <label>Comment</label>
+    <textarea id="review-comment" placeholder="Share your experience..."></textarea>
+    
+    <button class="submit-review-btn" onclick="submitReview()">Submit Review ⭐</button>
+  </div>
+</div>
