@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopEasy Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div id="login-page">
+    <div class="login-box">
+      <h1>🔐 Admin Login</h1>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="adminLogin()">Login</button>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none;">
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">✦ ShopEasy</div>
+      <div class="admin-badge">Admin Panel</div>
+      <nav>
+        <a href="#" class="nav-link active" onclick="showSection('products')">📦 Products</a>
+        <a href="#" class="nav-link" onclick="showSection('reviews')">⭐ Reviews</a>
+        <a href="#" class="nav-link" onclick="showSection('stats')">📊 Stats</a>
+      </nav>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <!-- Products Section -->
+      <div id="section-products" class="section">
+        <h2>📦 Manage Products</h2>
+        
+        <!-- Add Product Form -->
+        <div class="card">
+          <h3>Add New Product</h3>
+          <div class="form-grid">
+            <input type="text" id="p-name" placeholder="Product Name">
+            <input type="number" id="p-price" placeholder="Price (₹)">
+            <input type="text" id="p-emoji" placeholder="Emoji (🎧)">
+            <select id="p-category">
+              <option value="">Select Category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="books">Books</option>
+              <option value="home">Home</option>
+              <option value="sports">Sports</option>
+            </select>
+          </div>
+          <button class="add-btn" onclick="addProduct()">+ Add Product</button>
+        </div>
+
+        <!-- Products List -->
+        <div class="card">
+          <h3>All Products</h3>
+          <div id="admin-product-list"></div>
+        </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <div id="section-reviews" class="section" style="display:none;">
+        <h2>⭐ Manage Reviews</h2>
+        <div class="card">
+          <div id="admin-review-list"></div>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <div id="section-stats" class="section" style="display:none;">
+        <h2>📊 Stats</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="total-products">12</div>
+            <div class="stat-label">Total Products</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="total-reviews">0</div>
+            <div class="stat-label">Total Reviews</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Categories</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
