@@ -1,8 +1,6 @@
-// Admin credentials
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'shop123';
 
-// Products data (same as products.js)
 let adminProducts = [
   { id: 1, name: "Wireless Headphones", price: 1499, emoji: "🎧", category: "electronics" },
   { id: 2, name: "Smart Watch", price: 2999, emoji: "⌚", category: "electronics" },
@@ -20,11 +18,9 @@ let adminProducts = [
 
 let adminReviews = [];
 
-// Login
 function adminLogin() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
-
   if (user === ADMIN_USER && pass === ADMIN_PASS) {
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('dashboard').style.display = 'flex';
@@ -34,13 +30,11 @@ function adminLogin() {
   }
 }
 
-// Logout
 function logout() {
   document.getElementById('login-page').style.display = 'flex';
   document.getElementById('dashboard').style.display = 'none';
 }
 
-// Show Section
 function showSection(name) {
   document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -51,7 +45,6 @@ function showSection(name) {
   if (name === 'stats') loadStats();
 }
 
-// Load Products
 function loadProducts() {
   const list = document.getElementById('admin-product-list');
   if (adminProducts.length === 0) {
@@ -71,40 +64,26 @@ function loadProducts() {
   `).join('');
 }
 
-// Add Product
 function addProduct() {
   const name = document.getElementById('p-name').value;
   const price = document.getElementById('p-price').value;
   const emoji = document.getElementById('p-emoji').value;
   const category = document.getElementById('p-category').value;
-
   if (!name || !price || !emoji || !category) {
     alert('Please fill all fields!');
     return;
   }
-
-  const newProduct = {
-    id: Date.now(),
-    name,
-    price: parseInt(price),
-    emoji,
-    category
-  };
-
+  const newProduct = { id: Date.now(), name, price: parseInt(price), emoji, category };
   adminProducts.push(newProduct);
   loadProducts();
   loadStats();
-
-  // Clear form
   document.getElementById('p-name').value = '';
   document.getElementById('p-price').value = '';
   document.getElementById('p-emoji').value = '';
   document.getElementById('p-category').value = '';
-
   alert('✅ Product added successfully!');
 }
 
-// Delete Product
 function deleteProduct(id) {
   if (confirm('Delete this product?')) {
     adminProducts = adminProducts.filter(p => p.id !== id);
@@ -113,45 +92,47 @@ function deleteProduct(id) {
   }
 }
 
-// Load Reviews
 function loadReviews() {
   const list = document.getElementById('admin-review-list');
-  
-  // Get reviews from localStorage
-  const reviews = JSON.parse(localStorage.getItem('shopeasy-reviews') || '[]');
-  adminReviews = reviews;
+  list.innerHTML = '<p style="color:#6d5cae;text-align:center;padding:20px;">Loading reviews...</p>';
 
-  if (reviews.length === 0) {
-    list.innerHTML = '<p style="color:#6d5cae;text-align:center;padding:20px;">No reviews yet!</p>';
-    return;
-  }
-
-  list.innerHTML = reviews.map((r, i) => `
-    <div class="product-row">
-      <div class="product-emoji">${r.emoji || '📦'}</div>
-      <div class="product-info">
-        <div class="pname">${r.productName} — ${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-        <div class="pcat">"${r.comment}" — ${r.name}</div>
+  fetch('http://localhost:5000/api/reviews')
+  .then(res => res.json())
+  .then(reviews => {
+    adminReviews = reviews;
+    if (reviews.length === 0) {
+      list.innerHTML = '<p style="color:#6d5cae;text-align:center;padding:20px;">No reviews yet!</p>';
+      return;
+    }
+    list.innerHTML = reviews.map((r) => `
+      <div class="product-row">
+        <div class="product-emoji">${r.emoji || '📦'}</div>
+        <div class="product-info">
+          <div class="pname">${r.productName} — ${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+          <div class="pcat">"${r.comment}" — ${r.name}</div>
+        </div>
+        <button class="delete-btn" onclick="deleteReview('${r._id}')">🗑 Delete</button>
       </div>
-      <button class="delete-btn" onclick="deleteReview(${i})">🗑 Delete</button>
-    </div>
-  `).join('');
+    `).join('');
+    loadStats();
+  })
+  .catch(err => {
+    list.innerHTML = '<p style="color:#f87171;">Error loading reviews! Server chal raha hai?</p>';
+  });
 }
 
-// Delete Review
-function deleteReview(index) {
+function deleteReview(id) {
   if (confirm('Delete this review?')) {
-    const reviews = JSON.parse(localStorage.getItem('shopeasy-reviews') || '[]');
-    reviews.splice(index, 1);
-    localStorage.setItem('shopeasy-reviews', JSON.stringify(reviews));
-    loadReviews();
-    loadStats();
+    fetch(`http://localhost:5000/api/reviews/${id}`, { method: 'DELETE' })
+    .then(res => res.json())
+    .then(() => {
+      loadReviews();
+      loadStats();
+    });
   }
 }
 
-// Load Stats
 function loadStats() {
   document.getElementById('total-products').textContent = adminProducts.length;
-  const reviews = JSON.parse(localStorage.getItem('shopeasy-reviews') || '[]');
-  document.getElementById('total-reviews').textContent = reviews.length;
+  document.getElementById('total-reviews').textContent = adminReviews.length;
 }
