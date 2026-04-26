@@ -16,7 +16,6 @@ const products = [
 let cart = [];
 let currentCategory = "all";
 
-// Display products
 function displayProducts(list) {
   const grid = document.getElementById("product-grid");
   if (list.length === 0) {
@@ -38,7 +37,6 @@ function displayProducts(list) {
   `).join('');
 }
 
-// Filter by category
 function filterCat(cat, btn) {
   currentCategory = cat;
   document.querySelectorAll('.cat').forEach(b => b.classList.remove('active'));
@@ -46,7 +44,6 @@ function filterCat(cat, btn) {
   applyFilters();
 }
 
-// Search
 document.getElementById("search").addEventListener("input", applyFilters);
 
 function applyFilters() {
@@ -61,7 +58,6 @@ function applyFilters() {
   displayProducts(filtered);
 }
 
-// Cart
 function addToCart(id) {
   const product = products.find(p => p.id === id);
   cart.push(product);
@@ -100,9 +96,8 @@ function toggleCart() {
   document.getElementById("cart-overlay").classList.toggle("open");
 }
 
-// Load on start
 displayProducts(products);
-// Review system
+
 let currentReviewProduct = null;
 let selectedRating = 0;
 
@@ -147,11 +142,17 @@ function submitReview() {
     date: new Date().toLocaleDateString()
   };
 
-  // Save to localStorage
-  const reviews = JSON.parse(localStorage.getItem('shopeasy-reviews') || '[]');
-  reviews.push(review);
-  localStorage.setItem('shopeasy-reviews', JSON.stringify(reviews));
-
-  alert('✅ Review submitted! Thank you!');
-  closeReview();
+  fetch('http://localhost:5000/api/reviews', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(review)
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert('✅ Review submitted! Thank you!');
+    closeReview();
+  })
+  .catch(err => {
+    alert('Error submitting review!');
+  });
 }
